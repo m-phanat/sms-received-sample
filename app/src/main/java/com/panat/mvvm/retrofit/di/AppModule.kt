@@ -9,8 +9,8 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 val appModule = module {
-    viewModel { MainActivityViewModel() }
-    single { provideRetrofit() }
+    viewModel { MainActivityViewModel( get() ) }
+    factory { provideRetrofit() }
 }
 
 fun provideRetrofit(): ApiService {

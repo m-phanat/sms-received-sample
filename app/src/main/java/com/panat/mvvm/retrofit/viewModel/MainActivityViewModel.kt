@@ -1,32 +1,34 @@
 package com.panat.mvvm.retrofit.viewModel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.panat.mvvm.retrofit.di.provideRetrofit
 import com.panat.mvvm.retrofit.model.GithubEvents
+import com.panat.mvvm.retrofit.service.ApiService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 
-class MainActivityViewModel : ViewModel() {
+class MainActivityViewModel(private val retrofit: ApiService) : ViewModel() {
 
-    var events = MutableLiveData<List<GithubEvents>>()
+    private val _events = MutableLiveData<List<GithubEvents>>()
+    val events: LiveData<List<GithubEvents>>
+        get() = _events
 
     fun loadEvents() {
-        val call = provideRetrofit()
-        call.getEvents().enqueue(object : Callback<List<GithubEvents>> {
+        retrofit.getEvents().enqueue(object : Callback<List<GithubEvents>> {
             override fun onResponse(
                 call: Call<List<GithubEvents>>,
                 response: Response<List<GithubEvents>>
             ) {
-                events.postValue(response.body())
+                _events.postValue(response.body())
             }
 
             override fun onFailure(call: Call<List<GithubEvents>>, t: Throwable) {
                 println("GithubEvents onFailure")
             }
         })
-        call.getEvents().cancel()
+        retrofit.getEvents().cancel()
     }
 }
