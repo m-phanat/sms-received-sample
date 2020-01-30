@@ -8,7 +8,7 @@ import com.bumptech.glide.Glide
 import com.panat.mvvm.retrofit.databinding.ItemEventsBinding
 import com.panat.mvvm.retrofit.model.GithubEvents
 
-class GitEventsAdapter(val context: Context) :
+class GitEventsAdapter(private val context: Context) :
     RecyclerView.Adapter<GitEventsAdapter.EventsAapterViewHolder>() {
 
     private var items: List<GithubEvents> = mutableListOf()
@@ -32,23 +32,20 @@ class GitEventsAdapter(val context: Context) :
     override fun onBindViewHolder(holder: EventsAapterViewHolder, position: Int) =
         holder.bind(items[position])
 
-    class EventsAapterViewHolder(val binding: ItemEventsBinding) :
+    class EventsAapterViewHolder(private val binding: ItemEventsBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        val context: Context = binding.root.context
+        private val context: Context = binding.root.context
 
         fun bind(item: GithubEvents) {
             binding.name.text = item.actor.display_login
             binding.event.text = item.type
             Glide.with(context).load(item.actor.avatar_url).into(binding.profileImg)
         }
-
     }
 
     fun loadData(data: List<GithubEvents>) {
         this.items = data
         notifyDataSetChanged()
     }
-
-
 }
