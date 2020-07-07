@@ -12,8 +12,15 @@ data class RequestSms(
     var options: Options? = Options(),
     @SerializedName("schema")
     var schema: String? = "smsSchema",
+    @SerializedName("index")
+    var index: Index = Index(),
     @SerializedName("value")
-    var value: Value? = Value()
+    var value: Value = Value()
+)
+
+data class Index(
+    @SerializedName("code")
+    var code: String? = null
 )
 
 data class Options(
@@ -26,6 +33,11 @@ data class Options(
 )
 
 data class Value(
+    @SerializedName("\$set")
+    var set: Set = Set()
+)
+
+data class Set(
     @SerializedName("phone")
     var phone: String? = "",
     @SerializedName("text")

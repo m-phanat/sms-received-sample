@@ -28,8 +28,11 @@ class SMSReceiver : BroadcastReceiver() {
         val extractMessages = Telephony.Sms.Intents.getMessagesFromIntent(intent)
         extractMessages.forEach { smsMessage ->
             Log.v(TAG, smsMessage.displayMessageBody + " " + smsMessage.displayOriginatingAddress)
-            obj.value?.text = smsMessage.displayMessageBody
-            obj.value?.phone = smsMessage.displayOriginatingAddress
+            obj.value.set.text = smsMessage.displayMessageBody
+            obj.value.set.phone = smsMessage.displayOriginatingAddress
+
+            obj.index.code =
+                smsMessage.displayOriginatingAddress + "_" + java.util.Calendar.getInstance().timeInMillis
             displayMessageBody.postValue(obj)
         }
 
