@@ -9,13 +9,13 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 val appModule = module {
-    viewModel { MainActivityViewModel( get() ) }
+    viewModel { MainActivityViewModel(get()) }
     factory { provideRetrofit() }
 }
 
 fun provideRetrofit(): ApiService {
     return Retrofit.Builder()
-        .baseUrl("https://api.github.com/")
+        .baseUrl("http://18.140.130.253:8081/")
         .addConverterFactory(GsonConverterFactory.create())
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
