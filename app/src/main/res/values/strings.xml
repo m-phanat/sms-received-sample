@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">MVVM</string>
+    <string name="app_name">Test SMS</string>
     <string name="message_list">message list</string>
 </resources>

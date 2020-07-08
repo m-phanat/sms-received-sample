@@ -33,7 +33,7 @@ class MainActivityViewModel(private val retrofit: ApiService) : ViewModel() {
         })
     }
 
-    private val _smsSendResult = MutableLiveData<SendSmsResult>()
+    /*private val _smsSendResult = MutableLiveData<SendSmsResult>()
     val smsSendResult: LiveData<SendSmsResult>
         get() = _smsSendResult
 
@@ -50,7 +50,7 @@ class MainActivityViewModel(private val retrofit: ApiService) : ViewModel() {
                 println("onFailure ${t.message}")
             }
         })
-    }
+    }*/
 
 
 }

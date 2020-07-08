@@ -1,8 +1,11 @@
 package com.panat.mvvm.retrofit.model
 
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class RequestSms(
     @SerializedName("collection")
     var collection: String? = "smsTexts",
@@ -16,13 +19,15 @@ data class RequestSms(
     var index: Index = Index(),
     @SerializedName("value")
     var value: Value = Value()
-)
+) : Parcelable
 
+@Parcelize
 data class Index(
     @SerializedName("code")
     var code: String? = null
-)
+) : Parcelable
 
+@Parcelize
 data class Options(
     @SerializedName("setDefaultsOnInsert")
     var setDefaultsOnInsert: Boolean? = true,
@@ -30,16 +35,18 @@ data class Options(
     var strict: Boolean? = false,
     @SerializedName("upsert")
     var upsert: Boolean? = true
-)
+) : Parcelable
 
+@Parcelize
 data class Value(
     @SerializedName("\$set")
     var set: Set = Set()
-)
+) : Parcelable
 
+@Parcelize
 data class Set(
     @SerializedName("phone")
     var phone: String? = "",
     @SerializedName("text")
     var text: String? = ""
-)
+) : Parcelable

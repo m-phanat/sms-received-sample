@@ -39,8 +39,8 @@ class SmsListAdapter(private val context: Context) :
 
         @SuppressLint("SetTextI18n")
         fun bind(item: SmsItems) {
-            binding.name.text = "tel: " + item.phone
-            binding.event.text = "message: " + item.text
+            binding.name.text = "From : " + item.phone
+            binding.event.text = item.text
 //            Glide.with(context).load(item.actor.avatar_url).into(binding.profileImg)
         }
     }
