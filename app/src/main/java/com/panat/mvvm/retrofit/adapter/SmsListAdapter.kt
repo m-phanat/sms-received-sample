@@ -18,15 +18,9 @@ class SmsListAdapter(private val context: Context) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SmsListViewHolder {
-        val layoutInflator: LayoutInflater =
-            context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        return SmsListViewHolder(
-            ItemEventsBinding.inflate(
-                layoutInflator,
-                parent,
-                false
-            )
-        )
+        val inflater = LayoutInflater.from(parent.context)
+        val binding = ItemEventsBinding.inflate(inflater, parent, false)
+        return SmsListViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: SmsListViewHolder, position: Int) =
@@ -41,7 +35,6 @@ class SmsListAdapter(private val context: Context) :
         fun bind(item: SmsItems) {
             binding.name.text = "From : " + item.phone
             binding.event.text = item.text
-//            Glide.with(context).load(item.actor.avatar_url).into(binding.profileImg)
         }
     }
 

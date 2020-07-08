@@ -5,24 +5,22 @@ import android.content.Context
 import android.content.Intent
 import android.os.IBinder
 import android.util.Log
+import com.panat.mvvm.retrofit.di.provideRetrofit
 import com.panat.mvvm.retrofit.model.RequestSms
 import com.panat.mvvm.retrofit.model.SendSmsResult
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import retrofit2.converter.gson.GsonConverterFactory
 
-class UpdateSmsService: Service() {
+class UpdateSmsService : Service() {
 
-    companion object{
-        private const val EXTRA_REQUEST="sms_request"
+    companion object {
+        private const val EXTRA_REQUEST = "sms_request"
 
         @JvmStatic
-        fun createService(context: Context,requestSms: RequestSms):Intent{
-            return Intent(context,UpdateSmsService::class.java).apply {
-                putExtra(EXTRA_REQUEST,requestSms)
+        fun createService(context: Context, requestSms: RequestSms): Intent {
+            return Intent(context, UpdateSmsService::class.java).apply {
+                putExtra(EXTRA_REQUEST, requestSms)
             }
         }
     }
@@ -39,22 +37,16 @@ class UpdateSmsService: Service() {
     }
 
     private fun updateSms(data: RequestSms) {
-        val retrofit= Retrofit.Builder()
-            .baseUrl("http://18.140.130.253:8081/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .build()
-            .create(ApiService::class.java)
-
+        val retrofit = provideRetrofit()
         retrofit.sendSMS(data).enqueue(object : Callback<SendSmsResult> {
             override fun onResponse(
                 call: Call<SendSmsResult>,
                 response: Response<SendSmsResult>
             ) {
-                Log.d("update_sms_api","success")
+                Log.d("update_sms_api", "success")
 
-                val filter= "$packageName.NEW_MESSAGE"
-                val intent=Intent().apply {
+                val filter = "$packageName.NEW_MESSAGE"
+                val intent = Intent().apply {
                     action = filter
                 }
 
@@ -62,7 +54,7 @@ class UpdateSmsService: Service() {
             }
 
             override fun onFailure(call: Call<SendSmsResult>, t: Throwable) {
-                Log.d("update_sms_api",t.message.orEmpty())
+                Log.d("update_sms_api", t.message.orEmpty())
             }
         })
     }
