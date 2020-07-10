@@ -5,7 +5,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.panat.mvvm.retrofit.databinding.ItemEventsBinding
+import com.panat.mvvm.retrofit.databinding.ItemMessageSmsBinding
 import com.panat.mvvm.retrofit.model.SmsItems
 
 class SmsListAdapter(private val context: Context) :
@@ -19,14 +19,14 @@ class SmsListAdapter(private val context: Context) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SmsListViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = ItemEventsBinding.inflate(inflater, parent, false)
+        val binding = ItemMessageSmsBinding.inflate(inflater, parent, false)
         return SmsListViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: SmsListViewHolder, position: Int) =
         holder.bind(items[position])
 
-    class SmsListViewHolder(private val binding: ItemEventsBinding) :
+    class SmsListViewHolder(private val binding: ItemMessageSmsBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         private val context: Context = binding.root.context
